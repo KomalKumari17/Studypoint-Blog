@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block "content" %}
+    <!-- Post Header -->
+
+    <!-- <div class="flex justify-between bg-indigo-800 py-4 px-8 items-center shadow-md">
+        <h1 class="text-3xl font-bold text-white">{{ post.tutorial.name }}</h1>
+    </div> -->
+    
+    <!-- Post Content -->
+    <div class="flex-1 flex flex-col p-6 space-y-4">
+        <div class="flex p-6 bg-white rounded-lg shadow-lg border border-gray-200 gap-2">
+            <!-- <div class="w-full">
+                <img src="{{ post.image.url }}" class="object-contain w-full h-96 rounded-lg" alt="Post Image">
+            </div> -->
+            <div class="flex flex-col w-full mt-4">
+
+                <p class="text-xl font-semibold flex gap-1 my-2 text-gray-700">
+                    <svg class="w-5 h-5 text-gray-800 dark:text-black mt-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.153 19 21 12l-4.847-7H3l4.848 7L3 19h13.153Z"/>
+                      </svg>
+                      
+                    {{ post.title }}
+                </p>
+                <p class="text-sm text-gray-500">{{post.topic.name}}</p>
+                <p class="text-base text-gray-600 mb-4 leading-loose text-justify">{{ post.content }}</p>
+                <div class="flex items-center justify-between mt-4">
+                    <span class="text-sm text-green-600 font-semibold flex gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                        </svg>
+                        {{ post.author }}
+                    </span>
+                    <span class="text-sm text-gray-500 flex gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                        {{ post.created_at}}
+                    </span>
+                </div>
+               
+            </div>
+        </div>
+        
+    </div>
+    
+    
+
+   <div class="flex flex-col">
+    <div class="text-3xl font-semibold">Comments</div>
+   {% for comment in comments %}
+   <div class="flex p-4 border border-slate-300 my-2 rounded-lg shadow">
+    <div class="flex-[4]">
+        <div class="text-xl my-2 font-semibold text-gray-600">{{comment.user_id}}</div>
+        <div class="text-sm my-2 font-semibold text-gray-600">{{comment.comment}}</div>
+        <div class="text-sm my-2 font-semibold text-gray-600">{{comment.created_at}}</div>
+    </div>
+</div>
+   {% endfor %}
+   
+   {% if request.user.is_authenticated %}
+   <form action="{% url 'saveComment' post.id %}" method="post">
+           {% csrf_token %}
+       <textarea name="comment" class="flex-1 px-3 border border-gray-200 rounded-lg" placeholder="Write a comment..." id=""></textarea>
+       <button type="submit" class="bg-indigo-800 px-3 rounded-lg text-white flex-[0.1]">Post</button>
+   </form>
+   {% else %}
+   <p class=" text-center text-gray-800 p-4 bg-slate-200 rounded-lg border border-slate-300">Login required for comment please <a href="{% url 'login' %}" class="text-blue-500 hover:underline font-semibold">Login</a> or <a href="{% url 'register' %}" class="text-blue-500 hover:underline font-semibold">SignUp</a></p>
+   {% endif %}
+   {% if not comments|length %}
+        <div class="bg-slate-100 px-3 py-2 rounded-lg flex flex-col w-full ">
+            <p class=" text-center text-gray-800">Not Found any comment be the first</p>
+
+        </div>
+   {% endif %}
+</div>
+  
+{% endblock %}

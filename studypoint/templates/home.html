@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+
+
+{% block "content" %}
+    <h1 class="text-xl m-3">Start learning programming language of your choice.</h1>
+    <!-- Header -->
+    <div class="flex justify-between bg-indigo-50 py-4 px-8 items-center shadow-md">
+        <h1 class="text-2xl font-bold text-Black">{{ title }}</h1>
+    </div>
+    
+    <!-- Blog Posts -->
+    <div class=" flex flex-1 p-6 shadow-lg  grid grid-cols-4 ">
+            <!-- Image Section -->
+            {% for tutorial in tutorials %}
+           
+                <div class="flex flex-col justify-center items-center">
+                    <div class="flex bg-indigo-50 hover:bg-indigo-100 px-6">
+                        <a href="{% url 'view' tutorial.id %}"><img src="{{ tutorial.image.url }}" class="object-contain w-[100px] h-[100px] p-6 rounded-lg" alt="tutorial Image"> </a>
+    
+                    </div>
+                    <h3 class="font-semibold text-black text-sm">{{ tutorial.name }}</h3>
+                </div>
+           
+            {% endfor %}
+
+    </div>
+{% endblock %}
+
+
+
+<!-- <p class="text-sm font-semibold flex gap-1 my-2 text-gray-500">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
+    </svg>
+    {{ post.topic.name }}
+</p>
+<p class="text-base text-gray-600 mb-4">{{ post.content|truncatewords:30 }}</p>
+<div class="flex items-center justify-between mt-auto">
+    <span class="text-sm text-green-600 font-semibold flex gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+        </svg>
+        {{ post.author }}
+    </span>
+    <span class="text-sm text-gray-500 flex gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+        {{ post.created_at|date:"F j, Y" }}
+    </span>
+</div>
+<div class="flex justify-end mt-4">
+    <a href="{% url 'view' post.id %}" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg">Read More</a>
+</div> -->
